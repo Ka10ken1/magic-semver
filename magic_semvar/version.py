@@ -12,8 +12,12 @@ class Version:
         parts = version.split("-", 1)
         core_version = parts[0]
         self.prerelease = parts[1] if len(parts) > 1 else ""
-        self.major, self.minor, self.patch = self._process_version(core_version)
-        self.prerelease_parts = self.prerelease.split(".") if self.prerelease else []
+        self.major, self.minor, self.patch = self._process_version(
+            core_version
+        )
+        self.prerelease_parts = (
+            self.prerelease.split(".") if self.prerelease else []
+        )
 
     def __lt__(self, other: "Version") -> bool:
         if (self.major, self.minor, self.patch) != (
@@ -69,7 +73,9 @@ class Version:
         if not other.prerelease:
             return True
 
-        for self_part, other_part in zip(self.prerelease_parts, other.prerelease_parts):
+        for self_part, other_part in zip(
+            self.prerelease_parts, other.prerelease_parts
+        ):
             s_is_num = self_part.isdigit()
             o_is_num = other_part.isdigit()
             if s_is_num and not o_is_num:
